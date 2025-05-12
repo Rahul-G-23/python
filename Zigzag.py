@@ -3,10 +3,10 @@ def print_zigzag(rows):
         print("Please enter a number of rows greater than or equal to 3 for a proper zigzag.")
         return
 
-    n = (rows + 1) // 2  # Number of columns in the repeating unit
+    n = (rows + 1) // 2 
 
     for i in range(rows):
-        for j in range(n * (rows - 1)):  # Total columns needed
+        for j in range(n * (rows - 1)):  
             if (i % (rows - 1) == 0 and j % (rows - 1) == 0) or \
                (i % (rows - 1) == (rows - 2) and (j + 1) % (rows - 1) == 0) or \
                (0 < i % (rows - 1) < (rows - 2) and j % (rows - 1) == i % (rows - 1)):
