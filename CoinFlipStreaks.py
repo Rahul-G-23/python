@@ -18,6 +18,7 @@ def coin_flip_streaks(num_flips):
     return streak_count
 
 if __name__ == "__main__":
+    print(' Name: Rahul G \n USN: 1AY24AI088 \n Section: O')
     number_of_flips = 6
     streaks = coin_flip_streaks(number_of_flips)
     print(f"\nNumber of flips: {number_of_flips}")
