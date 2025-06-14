@@ -1,0 +1,84 @@
+from datetime import datetime, timedelta
+
+def get_day_of_week():
+    today = datetime.today()
+    print("\nToday is:", today.strftime("%A"))
+
+def birthday_info():
+    birthday_str = input("Enter your birthday (YYYY-MM-DD): ")
+    birthday = datetime.strptime(birthday_str, "%Y-%m-%d")
+    today = datetime.today()
+
+    age = today.year - birthday.year
+    if (today.month, today.day) < (birthday.month, birthday.day):
+        age -= 1
+
+    next_birthday = datetime(today.year, birthday.month, birthday.day)
+    if next_birthday < today:
+        next_birthday = datetime(today.year + 1, birthday.month, birthday.day)
+
+    delta = next_birthday - today
+    print(f"\nYou are {age} years old.")
+    print(f"Time until next birthday: {delta.days} days, {delta.seconds // 3600} hours, "
+          f"{(delta.seconds % 3600) // 60} minutes, {delta.seconds % 60} seconds")
+
+def double_day():
+    b1 = input("Enter the first birthday (YYYY-MM-DD): ")
+    b2 = input("Enter the second birthday (YYYY-MM-DD): ")
+
+    birth1 = datetime.strptime(b1, "%Y-%m-%d")
+    birth2 = datetime.strptime(b2, "%Y-%m-%d")
+
+    if birth2 < birth1:
+        birth1, birth2 = birth2, birth1
+
+    diff = birth2 - birth1
+    double_day = birth2 + diff
+    print("\nDouble Day is:", double_day.strftime("%Y-%m-%d"))
+
+def n_times_older_day():
+    b1 = input("Enter the first birthday (YYYY-MM-DD): ")
+    b2 = input("Enter the second birthday (YYYY-MM-DD): ")
+    n = float(input("Enter the multiplier (e.g., 2 for double, 3 for triple): "))
+
+    birth1 = datetime.strptime(b1, "%Y-%m-%d")
+    birth2 = datetime.strptime(b2, "%Y-%m-%d")
+
+    if birth2 < birth1:
+        birth1, birth2 = birth2, birth1
+        n = 1 / n  
+
+    diff = (birth2 - birth1).total_seconds()
+    x_seconds = (-n * diff) / (1 - n)
+    target_day = birth1 + timedelta(seconds=x_seconds)
+
+    print(f"\nThe day when one person is {n:.2f} times older is: {target_day.strftime('%Y-%m-%d')}")
+
+def main():
+    while True:
+        print("\n==== DATETIME TOOLKIT ====")
+        print("1. Print today's day of the week")
+        print("2. Calculate age and time to next birthday")
+        print("3. Find Double Day (one person is twice as old)")
+        print("4. Find N-times older day")
+        print("5. Exit")
+        choice = input("Choose an option (1–5): ")
+
+        if choice == '1':
+            get_day_of_week()
+        elif choice == '2':
+            birthday_info()
+        elif choice == '3':
+            double_day()
+        elif choice == '4':
+            n_times_older_day()
+        elif choice == '5':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 5.")
+        
+
+if __name__ == "__main__":
+    print("Name: Rahul G \n USN:1AY24AI088\n Section: 'O'")
+    main()
