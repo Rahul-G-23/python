@@ -1,0 +1,43 @@
+class Time:
+    
+    def __init__(self, seconds_since_midnight=0):
+        self.seconds_since_midnight = seconds_since_midnight
+
+    def __str__(self):
+        seconds = self.seconds_since_midnight
+        minutes, second = divmod(seconds, 60)
+        hour, minute = divmod(minutes, 60)
+        return f"{hour:02}:{minute:02}:{second:02}"
+
+    def time_to_int(self):
+        return self.seconds_since_midnight
+
+    def is_after(self, other):
+        return self.seconds_since_midnight > other.seconds_since_midnight
+
+    def add_time(self, other):
+        total_seconds = self.seconds_since_midnight + other.seconds_since_midnight
+        return Time(total_seconds)
+
+    def increment(self, seconds):
+        total_seconds = self.seconds_since_midnight + seconds
+        return Time(total_seconds)
+
+def int_to_time(seconds):
+    return Time(seconds)
+
+
+print("Name: Rahul G \n USN:1AY24AI088\n Section: 'O'")
+start = Time(9 * 3600 + 45 * 60)  # 9:45:00
+print("Start time:", start)
+
+duration = Time(1 * 3600 + 35 * 60)  # 1:35:00
+print("Duration:", duration)
+
+end = start.add_time(duration)
+print("End time:", end)
+
+incremented_time = start.increment(1337)  # Add 1337 seconds
+print("Incremented time:", incremented_time)
+
+print("Is end time after start time?", end.is_after(start))
