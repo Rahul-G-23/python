@@ -1,0 +1,20 @@
+import os
+
+def find_large_files(start_path, size_limit_mb=100):
+    size_limit_bytes = size_limit_mb * 1024 * 1024  # Convert MB to bytes
+
+    print(f"Searching for files larger than {size_limit_mb}MB...\n")
+
+    for foldername, subfolders, filenames in os.walk(start_path):
+        for filename in filenames:
+            try:
+                filepath = os.path.join(foldername, filename)
+                filesize = os.path.getsize(filepath)
+                if filesize > size_limit_bytes:
+                    print(f"{os.path.abspath(filepath)} - {filesize / (1024 * 1024):.2f} MB")
+            except (OSError, PermissionError):
+                continue
+if __name__ == "__main__":
+    print("Name: Rahul G \n USN:1AY24AI088\n Section: 'O'")
+    start_directory = input("Enter the path to start searching (e.g., C:\\ or /home/user): ")
+    find_large_files(start_directory)
