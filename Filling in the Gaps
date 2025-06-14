@@ -1,0 +1,57 @@
+import os
+import re
+
+def close_gaps(folder, prefix):
+    pattern = re.compile(rf'^{re.escape(prefix)}(\d+)(\..+)$')
+
+    files = []
+    for filename in os.listdir(folder):
+        match = pattern.match(filename)
+        if match:
+            number, extension = match.groups()
+            files.append((int(number), filename, extension))
+
+    files.sort()
+
+    expected_num = 1
+    for actual_num, filename, extension in files:
+        if actual_num != expected_num:
+            new_filename = f"{prefix}{expected_num:03d}{extension}"
+            print(f"Renaming {filename} -> {new_filename}")
+            os.rename(os.path.join(folder, filename), os.path.join(folder, new_filename))
+        expected_num += 1
+
+if __name__ == "__main__":
+    print("Name: Rahul G \n USN:1AY24AI088\n Section: 'O'")
+    folder_path = input("Enter the folder path: ").strip()
+    prefix = input("Enter the filename prefix (e.g., 'spam'): ").strip()
+    close_gaps(folder_path, prefix)
+
+
+
+import os
+import re
+
+def insert_gap(folder, prefix, start_index):
+    pattern = re.compile(rf'^{re.escape(prefix)}(\d+)(\..+)$')
+
+    files = []
+    for filename in os.listdir(folder):
+        match = pattern.match(filename)
+        if match:
+            number, extension = match.groups()
+            files.append((int(number), filename, extension))
+
+    files.sort(reverse=True)
+
+    for number, filename, extension in files:
+        if number >= start_index:
+            new_filename = f"{prefix}{number + 1:03d}{extension}"
+            print(f"Renaming {filename} -> {new_filename}")
+            os.rename(os.path.join(folder, filename), os.path.join(folder, new_filename))
+
+if __name__ == "__main__":
+    folder_path = input("Enter the folder path: ").strip()
+    prefix = input("Enter the filename prefix (e.g., 'spam'): ").strip()
+    index = int(input("Insert gap starting from file number (e.g., 3): "))
+    insert_gap(folder_path, prefix, index)
