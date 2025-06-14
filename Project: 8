@@ -1,0 +1,34 @@
+class Time:
+    def __init__(self, hours=0, minutes=0, seconds=0):
+        self.hours = hours
+        self.minutes = minutes
+        self.seconds = seconds
+
+    def __str__(self):
+        return f"{self.hours:02d}:{self.minutes:02d}:{self.seconds:02d}"
+
+    def to_seconds(self):
+        return self.hours * 3600 + self.minutes * 60 + self.seconds
+
+    @classmethod
+    def from_seconds(cls, total_seconds):
+        total_seconds = int(total_seconds)
+        hours = total_seconds // 3600
+        total_seconds %= 3600
+        minutes = total_seconds // 60
+        seconds = total_seconds % 60
+        return cls(hours, minutes, seconds)
+
+def mul_time(time, factor):
+    total_seconds = time.to_seconds() * factor
+    return Time.from_seconds(total_seconds)
+
+def avg_pace(finishing_time, distance):
+    pace_seconds = finishing_time.to_seconds() / distance
+    return Time.from_seconds(pace_seconds)
+
+finishing = Time(1, 30, 0)
+distance = 10
+print("Name: Rahul G \n USN:1AY24AI088\n Section: 'O'")
+average = avg_pace(finishing, distance)
+print(f"Average pace per mile: {average}")  
